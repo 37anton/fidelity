@@ -12,6 +12,7 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Image } from "expo-image";
+import { router } from "expo-router";
 
 const PRIMARY = "#0846ed";
 const SURFACE = "#f9f5ff";
@@ -116,7 +117,7 @@ export default function HomeScreen() {
 
             <TouchableOpacity
               style={styles.ctaButton}
-              onPress={() => setShowVerification(true)}
+              onPress={() => router.replace("/(tabs)/cartes")}
               activeOpacity={0.85}
             >
               <Text style={styles.ctaButtonText}>
