@@ -20,6 +20,12 @@ export class UsersService {
     return user;
   }
 
+  async findByEmail(email: string) {
+    const user = await this.repo.findOne({ where: { email } });
+    if (!user) throw new NotFoundException(`User with email ${email} not found`);
+    return user;
+  }
+
   create(data: Partial<User>) {
     return this.repo.save(this.repo.create(data));
   }
