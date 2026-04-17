@@ -1,0 +1,44 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: fidelity-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: fidelity
+      POSTGRES_PASSWORD: fidelity
+      POSTGRES_DB: fidelity
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U fidelity"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  adminer:
+    image: adminer:latest
+    container_name: fidelity-adminer
+    restart: unless-stopped
+    ports:
+      - "5051:8080"
+    depends_on:
+      - postgres
+
+  api:
+    build:
+      context: ./back
+      dockerfile: Dockerfile
+    container_name: fidelity-api
+    restart: unless-stopped
+    env_file:
+      - ./back/.env
+    ports:
+      - "3000:3000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+volumes:
+  postgres_data:
