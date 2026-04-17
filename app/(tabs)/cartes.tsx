@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Image } from "expo-image";
+import { router } from "expo-router";
 
 const PRIMARY = "#0846ed";
 const SURFACE = "#f9f5ff";
@@ -128,7 +129,27 @@ export default function CartesScreen() {
           </View>
 
           {CARDS.map((card) => (
-            <View key={card.id} style={styles.card}>
+            <TouchableOpacity
+              key={card.id}
+              style={styles.card}
+              activeOpacity={0.75}
+              onPress={() =>
+                router.push({
+                  pathname: "/etablissement",
+                  params: {
+                    id: card.id,
+                    name: card.name,
+                    location: card.location,
+                    icon: card.icon,
+                    visits: card.visits,
+                    total: card.total,
+                    reward: card.reward,
+                    progressColor: card.progressColor,
+                    percent: card.percent,
+                  },
+                })
+              }
+            >
               <View style={styles.cardTopRow}>
                 <View style={styles.cardLeft}>
                   <View
@@ -179,7 +200,7 @@ export default function CartesScreen() {
                   />
                 </View>
               </View>
-            </View>
+            </TouchableOpacity>
           ))}
         </View>
       </ScrollView>
