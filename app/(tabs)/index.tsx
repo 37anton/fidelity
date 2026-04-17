@@ -120,18 +120,26 @@ export default function HomeScreen() {
               onPress={() => router.replace("/(tabs)/cartes")}
               activeOpacity={0.85}
             >
-              <Text style={styles.ctaButtonText}>
-                Se connecter / S'inscrire
-              </Text>
+              <Text style={styles.ctaButtonText}>Se connecter</Text>
               <Text style={styles.ctaArrow}>→</Text>
             </TouchableOpacity>
 
             <Text style={styles.termsText}>
-              En vous inscrivant, vous acceptez nos{" "}
+              En vous connectant, vous acceptez nos{" "}
               <Text style={styles.termsLink}>Conditions d'utilisation</Text> et
               notre{" "}
               <Text style={styles.termsLink}>Politique de confidentialité</Text>
               .
+            </Text>
+
+            <Text style={styles.registerText}>
+              Pas encore de compte ?{" "}
+              <Text
+                style={styles.registerLink}
+                onPress={() => router.push("/inscription")}
+              >
+                S'inscrire
+              </Text>
             </Text>
           </View>
         </ScrollView>
@@ -433,5 +441,15 @@ const styles = StyleSheet.create({
     color: ON_SURFACE_VARIANT,
     fontSize: 15,
     fontWeight: "600",
+  },
+  registerText: {
+    textAlign: "center",
+    fontSize: 14,
+    color: ON_SURFACE_VARIANT,
+    marginTop: 4,
+  },
+  registerLink: {
+    color: PRIMARY,
+    fontWeight: "700",
   },
 });
